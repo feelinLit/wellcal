@@ -1,0 +1,87 @@
+.fancy-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    flex-grow: 1;
+}
+
+.fancy-list__group {
+    margin-bottom: 1rem;
+}
+
+.fancy-list__item {
+    display: flex;
+    justify-content: space-between;
+    font-family: 'Open Sans', sans-serif;
+    font-size: medium;
+    min-width: 200px;
+    border: 3px solid;
+    border-radius: 15px;
+    margin-top: 1rem;
+}
+
+.fancy-list__header {
+    display: flex;
+    justify-content: center;
+    font-weight: 700;
+    background-color: #DDA15E;
+    border: 3px solid;
+    border-color: #DDA15E;
+    font-size: larger;
+    min-width: 200px;
+    border-radius: 15px;
+}
+
+.fancy-list__item span {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0 5px;
+}
+
+.fancy-list__item_proteins {
+    border-color: #0081A7;
+    background: linear-gradient(90deg, rgba(0,129,167,0.8) 0%, rgba(0,129,167,0.8) 49%, rgba(255,255,255,1) 100%);}
+
+.fancy-list__item_carbohydrates {
+    border-color: #BC6C25;
+    background: linear-gradient(90deg, rgba(188,108,37,0.8) 0%, rgba(188,108,37,0.8) 70%, rgba(255,255,255,1) 100%);
+}
+
+.fancy-list__item_fats {
+    border-color: #FED9B7;
+    background: linear-gradient(90deg, rgba(254,217,183,0.8) 0%, rgba(254,217,183,0.8) 125%, rgba(255,255,255,1) 100%);
+}
+
+.fancy-list__item_calories {
+    border-color: #00AFB9;
+    background: linear-gradient(90deg, rgba(0,175,185,0.8) 0%, rgba(0,175,185,0.8) 35%, rgba(255,255,255,1) 100%);
+}
+
+.fancy-list__item_water {
+    border-color: rgb(93, 57, 235);
+    background: linear-gradient(90deg, rgba(93,57,235,0.8) 0%, rgba(93,57,235,0.8) 63%, rgba(255,255,255,1) 100%);
+    
+}
+
+.fancy-list__item_search {
+    margin-top: 0.5rem;
+    background-color: white;
+    border-color: white;
+}
+
+.big-list {
+    background-color: #FEFAE0;
+    border-radius: 15px 15px 0 0;
+    height: 100%;
+    padding: 0.1rem 0.5rem;
+}
+
+/* .big-list__header {
+    border-color: #DDA15E;
+    font-size: medium;
+} */
+
+.big-list__item {
+    border-color: #EDCD9F;
+    font-size: medium;
+}

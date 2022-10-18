@@ -1,0 +1,9 @@
+.link {
+    margin: 0 5px;
+    white-space: nowrap;
+}
+
+.link_without-decoration,.link_without-decoration:visited {
+    text-decoration: none;
+    color: inherit
+}

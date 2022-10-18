@@ -1,0 +1,21 @@
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 10%;
+    width: 100%;
+    border-bottom: 3px solid black;
+    border-radius: 20px;
+    margin-bottom: 1em;
+}
+
+.main-header__menu {
+    font-family: 'Comfortaa', cursive;
+    margin-right: 30px;
+    display: flex;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 600px) {
+    .main-header__menu {display: none;}
+}

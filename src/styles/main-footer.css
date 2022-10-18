@@ -1,0 +1,30 @@
+.main-footer {
+    margin-top: auto;
+    height: 10%;
+    width: 100%;
+    border-top: 3px solid black;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-footer__p {
+    text-align: center;
+    font-family: 'Comfortaa', cursive;
+    font-size: small;
+    font-weight: 400;
+    width: 80%;
+    min-width: 100px;
+    margin: 0%;
+}
+
+.main-footer__p_warning {
+    font-family: 'Open Sans', sans-serif;
+    font-size: xx-small;
+}
+
+@media screen and (max-width: 600px) {
+    .main-footer__p_warning {display: none;}
+}

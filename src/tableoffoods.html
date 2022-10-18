@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <meta lang="ru">
+    <title>Table Of Foods</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&family=Open+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel='stylesheet' type='text/css' media='screen' href='./styles/root.css'>
+    <script src="https://kit.fontawesome.com/f2ac3e92d5.js" crossorigin="anonymous"></script>
+    <!-- <script src='main.js'></script> -->
+</head>
+<body>
+    <header class="main-header">
+        <div class="logo">
+            <a href="">
+                <img class="logo__img" src="./images/logo.svg" alt="logo"/>
+            </a>
+        </div>
+        <nav class="main-header__menu">
+            <a class="link link_without-decoration" href="/src/foodlog.html">Foodlog</a>
+            <a class="link link_without-decoration" href="/src/calculator.html">Calculator</a>
+            <a class="link link_without-decoration" href="/src/tableoffoods.html">Table of foods</a>
+        </nav>
+    </header>
+    
+    <main>
+        <div class="fancy-list big-list" style="height: 100%; margin: 0 3%;">
+            <input placeholder="Search" class="fancy-list__header fancy-list__item_search" />
+            <div class="fancy-list__item big-list__item">
+                <span>Бульмени</span>
+                <span>P: 10  F: 30  C: 40</span>
+                <span>500kcal  250g</span>
+            </div>
+            <div class="fancy-list__item big-list__item">
+                <span>Свиная голова</span>
+                <span>P: 20  F: 50  C: 50</span>
+                <span>1000kcal  500g</span>
+            </div>
+            <div class="fancy-list__item big-list__item">
+                <span>Сух. "Пять корочек"</span>
+                <span>P: 50  F: 10  C: 40</span>
+                <span>700kcal  200g</span>
+            </div>
+            <button class="fancy-list__item fancy-btn fancy-btn__big-list">Add</button>
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p class="main-footer__p">
+            <a class="link link_without-decoration" href="">
+                <i class="fa-brands fa-telegram"></i>
+                @monsieurDeBill
+            </a>
+        </p>
+        <p class="main-footer__p main-footer__p_warning">
+            This website is designed primarily as an educational resource. It is not intended to provide medical advice on personal health matters or to guide treatment — which is only appropriately done by a qualified health professional. Permission to reprint information in whole or in part contained on this site is granted, provided customary credit is given.
+        </p>
+    </footer>
+</body>

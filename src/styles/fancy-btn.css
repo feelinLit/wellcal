@@ -1,0 +1,37 @@
+.fancy-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Open Sans', sans-serif;
+    border: 3px solid;
+    border-radius: 15px;
+    flex: 1 1 5rem;
+    transition: 0.3s;
+}
+
+.fancy-btn__water {
+    border-color: rgb(93, 57, 235);
+    background-color: rgba(169, 205, 248, 0.5);
+    
+}
+
+.fancy-btn__water:hover {
+    background-color: rgba(169, 205, 248, 1);
+}
+
+.fancy-btn__big-list {
+    width: 100%;
+    font-size: larger;
+    border-color: rgba(237, 205, 159, 1);
+    background-color: rgba(237, 205, 159, 0.5);
+}
+
+.fancy-btn__big-list:hover {
+    background-color: rgba(237, 205, 159, 1);
+}
+
+.fancy-btn-group {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.5rem 0;
+}
