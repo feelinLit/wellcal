@@ -10,5 +10,5 @@
 .day-selector__day-text {
     color: #606C38;
     font-family: 'Open Sans', sans-serif;
-    font-size: x-large;
+    font-size: calc(1rem + 1vw);
 }

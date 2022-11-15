@@ -21,7 +21,7 @@
 
 .fancy-btn__big-list {
     width: 100%;
-    font-size: larger;
+    font-size: calc(0.7rem + 0.5vw);
     border-color: rgba(237, 205, 159, 1);
     background-color: rgba(237, 205, 159, 0.5);
 }

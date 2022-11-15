@@ -1,9 +1,46 @@
 .link {
-    margin: 0 5px;
     white-space: nowrap;
 }
 
 .link_without-decoration,.link_without-decoration:visited {
     text-decoration: none;
     color: inherit
+}
+
+.link_main-header {
+    position: relative;
+    display: inline-block;
+    font-size: calc(0.6rem + 0.7vw);;
+    margin: 0 calc(0.5rem + 0.3vw);
+}
+
+.link_main-header::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.link_main-header:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}
+
+.link_active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(1);
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: black;
+    transform-origin: bottom right;
+    transition: transform 0s ease-out;
 }

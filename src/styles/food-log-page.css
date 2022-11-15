@@ -2,6 +2,7 @@ main {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+    gap: 2vw;
 }
 
 .side {
@@ -11,11 +12,17 @@ main {
 }
 
 .side_right {
-    flex-basis: 50%;
-    min-height: 60vh;
+    flex-basis: 50vw;
+}
+
+@media (max-width: 600px) {
+    .side_right {
+        min-width: 300px;
+        margin-bottom: 1rem;
+    }
 }
 
 .side_left {
-    flex-basis: 30%;
+    flex-basis: 30vw;
 }
 

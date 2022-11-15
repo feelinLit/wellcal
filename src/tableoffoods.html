@@ -21,14 +21,27 @@
             </a>
         </div>
         <nav class="main-header__menu">
-            <a class="link link_without-decoration" href="./src/foodlog.html">Foodlog</a>
-            <a class="link link_without-decoration" href="./src/calculator.html">Calculator</a>
-            <a class="link link_without-decoration" href="./src/tableoffoods.html">Table of foods</a>
+            <div class="main-header__menu">
+                <a class="link link_without-decoration link_main-header" href="./foodlog.html">Foodlog</a>
+                <a class="link link_without-decoration link_main-header" href="./calculator.html">Calculator</a>
+                <a class="link link_without-decoration link_main-header" href="./tableoffoods.html">Table of foods</a>
+                <div class="hamburger-menu">
+                    <a class="hamburger-menu__icon" >
+                        <i class="fa-solid fa-bars"></i>
+                    </a>
+                    <ul class="hamburger-menu__submenu" style="list-style: none;">
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./foodlog.html">Foodlog</a></li>
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./calculator.html">Calculator</a></li>
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./tableoffoods.html">Table of foods</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+        <script src="./js/headerLinkActive.js"></script>
     </header>
     
     <main>
-        <div class="fancy-list big-list" style="height: 100%; margin: 0 3%;">
+        <div class="big-list" style="height: 100%; margin: 0 3%; padding-bottom: 10%;">
             <input placeholder="Search" class="fancy-list__header fancy-list__item_search" />
             <div class="fancy-list__item big-list__item">
                 <span>Бульмени</span>
@@ -45,7 +58,7 @@
                 <span>P: 50  F: 10  C: 40</span>
                 <span>700kcal  200g</span>
             </div>
-            <button class="fancy-list__item fancy-btn fancy-btn__big-list">Add</button>
+            <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list">Add</button>
         </div>
     </main>
 

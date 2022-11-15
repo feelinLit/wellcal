@@ -23,17 +23,30 @@
             </a>
         </div>
         <nav class="main-header__menu">
-            <a class="link link_without-decoration" href="./src/foodlog.html">Foodlog</a>
-            <a class="link link_without-decoration" href="./src/calculator.html">Calculator</a>
-            <a class="link link_without-decoration" href="./src/tableoffoods.html">Table of foods</a>
+            <div class="main-header__menu">
+                <a class="link link_without-decoration link_main-header" href="./foodlog.html">Foodlog</a>
+                <a class="link link_without-decoration link_main-header" href="./calculator.html">Calculator</a>
+                <a class="link link_without-decoration link_main-header" href="./tableoffoods.html">Table of foods</a>
+                <div class="hamburger-menu">
+                    <a class="hamburger-menu__icon" >
+                        <i class="fa-solid fa-bars"></i>
+                    </a>
+                    <ul class="hamburger-menu__submenu">
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./foodlog.html">Foodlog</a></li>
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./calculator.html">Calculator</a></li>
+                        <li><a class="link link_without-decoration hamburger-menu__item" href="./tableoffoods.html">Table of foods</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
+        <script src="./js/headerLinkActive.js"></script>
     </header>
     <main>
         <div class="side side_left">
             <div class="day-selector">
-                <i class="fa-solid fa-angle-left" style="color: #606C38;"></i>
+                <i class="fa-solid fa-angle-left" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i>
                 <span class="day-selector__day-text">Today, 3rd Sept.</span>
-                <i class="fa-solid fa-angle-right" style="color: #606C38;"></i>
+                <i class="fa-solid fa-angle-right" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i>
             </div>
             <div class="fancy-list">
                 <div class="fancy-list__item fancy-list__item_proteins">
@@ -54,13 +67,16 @@
                 </div>
                 <div class="fancy-list__item fancy-list__item_water">
                     <span>Water</span>
-                    <span>1000/1600</span>
+                    <span>
+                        <span id="water-progress">1000</span>/<span id="water-max">1600</span>
+                    </span>
                 </div>
                 <div class="fancy-btn-group">
                     <button class="fancy-btn fancy-btn__water">+50</button>
                     <button class="fancy-btn fancy-btn__water">+150</button>
                     <button class="fancy-btn fancy-btn__water">+250</button>
                 </div>
+                <script src="./js/waterProgress.js"></script>
             </div>
         </div>
         <div class="side side_right">

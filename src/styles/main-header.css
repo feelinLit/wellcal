@@ -2,20 +2,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 10%;
-    width: 100%;
+    /* height: 10vw; */
+    width: calc(100% + 1rem);
     border-bottom: 3px solid black;
-    border-radius: 20px;
-    margin-bottom: 1em;
+    border-radius: calc(0.5rem + 0.2vw);
+    margin: 0 -0.5rem 1rem;
+    padding: calc(0.5vw + 0.5vh) 0;
 }
 
 .main-header__menu {
     font-family: 'Comfortaa', cursive;
-    margin-right: 30px;
+    margin-right: 2rem;
     display: flex;
-    overflow: hidden;
+    overflow: visible;
+}
+
+.main-header__menu .hamburger-menu {
+    display: none;
 }
 
 @media screen and (max-width: 600px) {
-    .main-header__menu {display: none;}
+    .main-header__menu .link_main-header {display: none;}
+    .main-header__menu .hamburger-menu {
+      display: block;
+    }
 }

@@ -28,7 +28,7 @@
     background-color: #DDA15E;
     border: 3px solid;
     border-color: #DDA15E;
-    font-size: larger;
+    font-size: calc(0.8rem + 0.5vw);
     min-width: 200px;
     border-radius: 15px;
 }
@@ -60,7 +60,7 @@
 .fancy-list__item_water {
     border-color: rgb(93, 57, 235);
     background: linear-gradient(90deg, rgba(93,57,235,0.8) 0%, rgba(93,57,235,0.8) 63%, rgba(255,255,255,1) 100%);
-    
+    margin-top: 1.5rem;
 }
 
 .fancy-list__item_search {
@@ -73,7 +73,8 @@
     background-color: #FEFAE0;
     border-radius: 15px 15px 0 0;
     height: 100%;
-    padding: 0.1rem 0.5rem;
+    padding: 0.3rem 0.5rem 35%;
+    min-width: 70%;
 }
 
 /* .big-list__header {
@@ -83,5 +84,5 @@
 
 .big-list__item {
     border-color: #EDCD9F;
-    font-size: medium;
+    font-size: calc(0.5rem + 0.5vw);
 }
