@@ -1,0 +1,4 @@
+.calculator__result {
+    display: none;
+    flex-direction: column;
+}

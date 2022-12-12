@@ -10,8 +10,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;500;700&family=Open+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/root.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./styles/calculator-page.css'>
     <script src="https://kit.fontawesome.com/f2ac3e92d5.js" crossorigin="anonymous"></script>
-    <!-- <script src='main.js'></script> -->
 </head>
 <body>
     <header class="main-header">
@@ -40,8 +40,60 @@
         <script src="./js/headerLinkActive.js"></script>
     </header>
 
-    <main style="display: flex; justify-content:center; align-items: center">
-        <img src="./images/WIP.png">
+    <main style="display: flex; flex-direction: column; justify-content:center; align-items: center">
+        <form action="#" id="calculator-form">
+            <div class="fancy-list" style="gap: 1rem;">
+                <label class="fancy-list__label">Age
+                    <input class="fancy-list__input-box" type="number" id="age" name="age" min="1" max="100" placeholder="Type here" required>
+                </label>
+                <label class="fancy-list__label">
+                    Gender
+                    <select class="fancy-list__input-box" id="gender">
+                        <!-- <option value="">Select</option>    -->
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
+                </label>
+                <label class="fancy-list__label">
+                    Current weight
+                    <input class="fancy-list__input-box" type="number" id="weight" name="weight" min="1" max="300" placeholder="Type here" required>
+                </label>
+                <label class="fancy-list__label">
+                    Height
+                    <input class="fancy-list__input-box" type="number" id="height" name="height" min="1" max="300" placeholder="Type here" required>
+                </label>
+                <label class="fancy-list__label">
+                    Goal
+                    <div class="fancy-list">
+                        <label class="fancy-radio__label">
+                            <input type="radio" id="lose-weight" name="goal" value="lose-weight" required>
+                            Lose weight
+                        </label>
+                        <label class="fancy-radio__label">
+                            <input type="radio" id="maintain-weight" name="goal" value="maintain-weight" required>
+                            Maintain weight
+                        </label>
+                        <label class="fancy-radio__label">
+                            <input type="radio" id="gain-weight" name="goal" value="gain-weight" required>
+                            Gain weight
+                        </label>
+                    </div>
+                </label>
+                <label class="fancy-list__label">
+                    Activity level
+                    <select class="fancy-list__input-box" id="activity">
+                        <!-- <option value="">Select</option> -->
+                        <option value="Sedentary">Sedentary</option>
+                        <option value="Lightly active">Lightly active</option>
+                        <option value="Moderately active">Moderately active</option>
+                        <option value="Very active">Very active</option>
+                        <option value="Extremely active">Extremely active</option>
+                    </select>
+                </label>
+                <input class="fancy-btn fancy-btn_submit" type="submit" value="Calculate">
+            </div>
+        </form>
+        <div class="calculator__result" id="calculator-result"></div>
     </main>
 
     <footer class="main-footer">
@@ -55,4 +107,7 @@
             This website is designed primarily as an educational resource. It is not intended to provide medical advice on personal health matters or to guide treatment — which is only appropriately done by a qualified health professional. Permission to reprint information in whole or in part contained on this site is granted, provided customary credit is given.
         </p>
     </footer>
+
+    <script src='./js/calculator.js'></script>
+    <script src='./js/restoreCalculatorForm.js'></script>
 </body>
