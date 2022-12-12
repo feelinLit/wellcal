@@ -93,6 +93,8 @@ function displayResult(calories, water, proteins, fats, carbs) {
     document.getElementById("daily-carbs").value =  carbs.toFixed() + ' g';
     
     resultDiv.style.display = 'flex';
+
+    resultDiv.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
 }
 
 
