@@ -1,24 +1,25 @@
-.fancy-list {
+.fancy-list, .big-list {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: stretch;
     flex-grow: 1;
+    gap: 0.5rem;
 }
 
 .fancy-list__group {
     margin-bottom: 1rem;
 }
 
-.fancy-list__item {
+.fancy-list__item, .fancy-list__input-box {
     display: flex;
     justify-content: space-between;
     font-family: 'Open Sans', sans-serif;
-    font-size: medium;
+    font-size: 1rem;
     min-width: 200px;
     border: 3px solid;
     border-radius: 15px;
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
 }
 
 .fancy-list__header {
@@ -38,31 +39,6 @@
     margin: 0 5px;
 }
 
-.fancy-list__item_proteins {
-    border-color: #0081A7;
-    background: linear-gradient(90deg, rgba(0,129,167,0.8) 0%, rgba(0,129,167,0.8) 49%, rgba(255,255,255,1) 100%);}
-
-.fancy-list__item_carbohydrates {
-    border-color: #BC6C25;
-    background: linear-gradient(90deg, rgba(188,108,37,0.8) 0%, rgba(188,108,37,0.8) 70%, rgba(255,255,255,1) 100%);
-}
-
-.fancy-list__item_fats {
-    border-color: #FED9B7;
-    background: linear-gradient(90deg, rgba(254,217,183,0.8) 0%, rgba(254,217,183,0.8) 125%, rgba(255,255,255,1) 100%);
-}
-
-.fancy-list__item_calories {
-    border-color: #00AFB9;
-    background: linear-gradient(90deg, rgba(0,175,185,0.8) 0%, rgba(0,175,185,0.8) 35%, rgba(255,255,255,1) 100%);
-}
-
-.fancy-list__item_water {
-    border-color: rgb(93, 57, 235);
-    background: linear-gradient(90deg, rgba(93,57,235,0.8) 0%, rgba(93,57,235,0.8) 63%, rgba(255,255,255,1) 100%);
-    margin-top: 1.5rem;
-}
-
 .fancy-list__item_search {
     margin-top: 0.5rem;
     background-color: white;
@@ -73,7 +49,7 @@
     background-color: #FEFAE0;
     border-radius: 15px 15px 0 0;
     height: 100%;
-    padding: 0.3rem 0.5rem 35%;
+    padding: 0.3rem 0.5rem 1rem;
     min-width: 70%;
 }
 
@@ -85,4 +61,20 @@
 .big-list__item {
     border-color: #EDCD9F;
     font-size: calc(0.5rem + 0.5vw);
+}
+
+.big-list_with-extra-space {
+    padding-bottom: 35%;
+}
+
+.fancy-list__input-box {
+    border: 1px solid darkgrey;
+    border-radius: 7px;
+    height: 2rem;
+    width: 40vw;
+}
+
+.fancy-list__label {
+    font-size: 0.8rem;
+    font-weight: 600;
 }
