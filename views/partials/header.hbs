@@ -1,0 +1,39 @@
+<div class="logo">
+    <a href="">
+        <img class="logo__img" src="./images/logo.svg" alt="logo"/>
+    </a>
+</div>
+<nav class="main-header__menu">
+    <div class="main-header__menu">
+        <a class="link link_without-decoration link_main-header" href="/">Foodlog</a>
+        <a class="link link_without-decoration link_main-header" href="/calculator">Calculator</a>
+        <a class="link link_without-decoration link_main-header" href="/tableoffoods">Table of foods</a>
+        <a class="link link_without-decoration link_main-header">
+            {{#if authenticated}}
+                <i class="fas fa-sign-out-alt"></i>
+            {{else}}
+                <i class="fas fa-sign-in-alt"></i>
+            {{/if}}
+        </a>
+        <div class="hamburger-menu">
+            <a class="hamburger-menu__icon" >
+                <i class="fa-solid fa-bars"></i>
+            </a>
+            <ul class="hamburger-menu__submenu">
+                <li><a class="link link_without-decoration hamburger-menu__item" href="/">Foodlog</a></li>
+                <li><a class="link link_without-decoration hamburger-menu__item" href="/calculator">Calculator</a></li>
+                <li><a class="link link_without-decoration hamburger-menu__item" href="/tableoffoods">Table of foods</a></li>
+                <li>
+                    <a class="link link_without-decoration hamburger-menu__item">
+                        {{#if authenticated}}
+                            Log Out
+                        {{else}}
+                           Log In
+                        {{/if}}
+                    </a>
+                </li>
+                </ul>
+        </div>
+    </div>
+</nav>
+<script src="/js/headerLinkActive.js"></script>

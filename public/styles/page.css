@@ -1,4 +1,13 @@
-main {
+.calculator__main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.5rem 0 2rem;
+}
+
+.foodlog__main {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
