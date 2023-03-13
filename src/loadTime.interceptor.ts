@@ -12,8 +12,8 @@ export class LoadTimeInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     const startTime = Date.now();
     return next.handle().pipe(
-      map(() => {
-        return { serverLoadTime: `${Date.now() - startTime}ms` };
+      map((data) => {
+        return { ...data, serverLoadTime: `${Date.now() - startTime}` };
       }),
     );
   }
