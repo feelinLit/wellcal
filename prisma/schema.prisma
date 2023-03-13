@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id     Int     @id @default(autoincrement())
+  email  String  @unique
+  name   String
+  person Person?
+}
+
+model Person {
+  id            Int           @id @default(autoincrement())
+  user          User          @relation(fields: [userId], references: [id])
+  userId        Int           @unique
+  name          String
+  height        Int
+  weight        Int
+  gender        Boolean
+  activityLevel ActivityLevel @default(LIGHTLY_ACTIVE)
+  plan          Plan          @relation(fields: [planId], references: [id])
+  planId        Int
+  days          Day[]
+}
+
+model Food {
+  id       Int    @id @default(autoincrement())
+  name     String @unique
+  proteins Int
+  fats     Int
+  carbs    Int
+  meals    Meal[]
+}
+
+model Meal {
+  id    Int    @id @default(autoincrement())
+  foods Food[]
+  day   Day    @relation(fields: [dayId], references: [id])
+  dayId Int
+}
+
+model Day {
+  id       Int    @id @default(autoincrement())
+  meals    Meal[]
+  person   Person @relation(fields: [personId], references: [id])
+  personId Int
+}
+
+model Plan {
+  id            Int      @id @default(autoincrement())
+  proteinsLimit Int
+  fatsLimit     Int
+  carbsLimit    Int
+  Person        Person[]
+}
+
+enum ActivityLevel {
+  SEDENTARY
+  LIGHTLY_ACTIVE
+  MODERATELY_ACTIVE
+  VERY_ACTIVE
+  EXTREMELY_ACTIVE
+}
