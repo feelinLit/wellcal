@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "Day" ADD COLUMN     "date" TIMESTAMP(3) NOT NULL DEFAULT NOW()::date;

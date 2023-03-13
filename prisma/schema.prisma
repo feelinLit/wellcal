@@ -48,9 +48,10 @@ model Meal {
 }
 
 model Day {
-  id       Int    @id @default(autoincrement())
+  id       Int      @id @default(autoincrement())
+  date     DateTime @default(dbgenerated("NOW()::date"))
   meals    Meal[]
-  person   Person @relation(fields: [personId], references: [id])
+  person   Person   @relation(fields: [personId], references: [id])
   personId Int
 }
 
