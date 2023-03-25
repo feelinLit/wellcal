@@ -13,9 +13,6 @@ export class Product {
   category: Category;
 
   @Column({ unsigned: true })
-  grams: number;
-
-  @Column({ unsigned: true })
   proteinsNumber: number;
 
   @Column({ unsigned: true })

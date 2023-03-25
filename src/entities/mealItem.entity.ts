@@ -16,6 +16,9 @@ export class MealItem {
   @CreateDateColumn()
   dateTime: Date;
 
+  @Column({ unsigned: true })
+  grams: number;
+
   @Column()
   mealId: number;
 

@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   OneToOne,
   JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { FoodPlan } from './foodPlan.entity';
+import { Meal } from './meal.entity';
 
 export enum ActivityLevel {
   SEDENTARY,
@@ -48,4 +50,7 @@ export class User {
   @OneToOne(() => FoodPlan)
   @JoinColumn()
   plan: FoodPlan;
+
+  @OneToMany(() => Meal, (meal) => meal.user)
+  meals: Meal[];
 }
