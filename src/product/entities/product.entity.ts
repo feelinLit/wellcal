@@ -1,4 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Category } from './category.entity';
 
 @Entity()
@@ -10,7 +16,11 @@ export class Product {
   name: string;
 
   @ManyToOne(() => Category)
+  @JoinColumn({ name: 'categoryId' })
   category: Category;
+
+  @Column()
+  categoryId: number;
 
   @Column({ unsigned: true })
   proteinsNumber: number;

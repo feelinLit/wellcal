@@ -1,12 +1,13 @@
 import {
-  Entity,
-  PrimaryGeneratedColumn,
-  CreateDateColumn,
-  ManyToOne,
   Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Meal } from './meal.entity';
-import { Product } from './product.entity';
+import { Product } from '../../product/entities/product.entity';
 
 @Entity()
 export class MealItem {
@@ -26,8 +27,10 @@ export class MealItem {
   productId: number;
 
   @ManyToOne(() => Meal, (meal) => meal.items)
+  @JoinColumn({ name: 'mealId' })
   meal: Meal;
 
   @ManyToOne(() => Product)
+  @JoinColumn({ name: 'productId' })
   product: Product;
 }

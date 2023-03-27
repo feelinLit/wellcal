@@ -3,7 +3,7 @@ import { AppService } from './app.service';
 import { LoadTimeInterceptor } from './loadTime.interceptor';
 
 @UseInterceptors(LoadTimeInterceptor)
-@Controller()
+@Controller('')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 

@@ -1,16 +1,20 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
+  CreateDateColumn,
+  Entity,
   JoinColumn,
+  ManyToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { User } from './user.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class FoodPlan {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @CreateDateColumn()
+  dateTime: Date;
 
   @Column({ unsigned: true })
   proteinsLimit: number;
@@ -21,7 +25,10 @@ export class FoodPlan {
   @Column({ unsigned: true })
   carbsLimit: number;
 
-  @OneToOne(() => User)
-  @JoinColumn()
+  @ManyToOne(() => User)
+  @JoinColumn({ name: 'userId' })
   user: User;
+
+  @Column()
+  userId: number;
 }

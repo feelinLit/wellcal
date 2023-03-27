@@ -1,13 +1,13 @@
 import {
-  Entity,
   Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
+  Entity,
   JoinColumn,
   OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FoodPlan } from './foodPlan.entity';
-import { Meal } from './meal.entity';
+import { FoodPlan } from '../../food-plan/entities/foodPlan.entity';
+import { Meal } from '../../meal/entities/meal.entity';
 
 export enum ActivityLevel {
   SEDENTARY,
@@ -48,8 +48,11 @@ export class User {
   activityLevel: ActivityLevel;
 
   @OneToOne(() => FoodPlan)
-  @JoinColumn()
+  @JoinColumn({ name: 'planId' })
   plan: FoodPlan;
+
+  @Column()
+  planId: number;
 
   @OneToMany(() => Meal, (meal) => meal.user)
   meals: Meal[];

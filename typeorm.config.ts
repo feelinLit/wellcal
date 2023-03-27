@@ -3,12 +3,12 @@ import {
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { User } from './src/entities/user.entity';
-import { Product } from './src/entities/product.entity';
-import { Meal } from './src/entities/meal.entity';
-import { MealItem } from './src/entities/mealItem.entity';
-import { FoodPlan } from './src/entities/foodPlan.entity';
-import { Category } from './src/entities/category.entity';
+import { User } from './src/user/entities/user.entity';
+import { Product } from './src/product/entities/product.entity';
+import { Meal } from './src/meal/entities/meal.entity';
+import { MealItem } from './src/meal/entities/mealItem.entity';
+import { FoodPlan } from './src/food-plan/entities/foodPlan.entity';
+import { Category } from './src/product/entities/category.entity';
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],
