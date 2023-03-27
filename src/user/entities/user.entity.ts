@@ -10,11 +10,11 @@ import { FoodPlan } from '../../food-plan/entities/foodPlan.entity';
 import { Meal } from '../../meal/entities/meal.entity';
 
 export enum ActivityLevel {
-  SEDENTARY,
-  LIGHTLY_ACTIVE,
-  MODERATELY_ACTIVE,
-  VERY_ACTIVE,
-  EXTREMELY_ACTIVE,
+  SEDENTARY = 'Sedentary',
+  LIGHTLY_ACTIVE = 'LightlyActive',
+  MODERATELY_ACTIVE = 'ModeratelyActive',
+  VERY_ACTIVE = 'VeryActive',
+  EXTREMELY_ACTIVE = 'ExtremelyActive',
 }
 
 @Entity()
