@@ -3,5 +3,5 @@ import { CreateMealItemDto } from './create-mealItem.dto';
 
 export class UpdateMealItemDto extends OmitType(
   PartialType(CreateMealItemDto),
-  ['productId'],
+  ['productId', 'mealId'],
 ) {}

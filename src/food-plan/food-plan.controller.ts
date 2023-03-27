@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { FoodPlanService } from './food-plan.service';
 import { CreateFoodPlanDto } from './dto/create-food-plan.dto';
 import { FoodPlanRO } from './dto/food-plan.response';
@@ -24,10 +24,5 @@ export class FoodPlanController {
     } else {
       return await this.foodPlanService.findAll();
     }
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<FoodPlanRO> {
-    return await this.foodPlanService.findOne(+id);
   }
 }

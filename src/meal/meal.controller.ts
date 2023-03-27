@@ -40,11 +40,6 @@ export class MealController {
     }
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<MealRO> {
-    return await this.mealService.findOne(+id);
-  }
-
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<boolean> {
     return await this.mealService.remove(+id);
@@ -57,21 +52,16 @@ export class MealController {
     return await this.mealItemService.create(createMealItemDto);
   }
 
-  @ApiQuery({ name: 'mealItemId', required: false })
+  @ApiQuery({ name: 'mealId', required: false })
   @Get('item')
   async findAllMealItems(
-    @Query('userId') mealItemId?: string,
+    @Query('userId') mealId?: string,
   ): Promise<MealItemRO[]> {
-    if (mealItemId !== null) {
-      return await this.mealItemService.findAllByMeal(+mealItemId);
+    if (mealId !== null) {
+      return await this.mealItemService.findAllByMeal(+mealId);
     } else {
       return await this.mealItemService.findAll();
     }
-  }
-
-  @Get('item/:id')
-  async findOneItem(@Param('id') id: string): Promise<MealItemRO> {
-    return await this.mealItemService.findOne(+id);
   }
 
   @Patch('item/:id')

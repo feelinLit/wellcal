@@ -41,11 +41,6 @@ export class ProductController {
     }
   }
 
-  @Get(':id')
-  async findOne(@Param('id') id: string): Promise<ProductRO> {
-    return await this.productService.findOne(+id);
-  }
-
   @Patch(':id')
   async update(
     @Param('id') id: string,
@@ -69,11 +64,6 @@ export class ProductController {
   @Get('category')
   async findAllCategories(): Promise<CategoryRO[]> {
     return await this.categoryService.findAllCategories();
-  }
-
-  @Get('category/:id')
-  async findOneCategory(@Param('id') id: string): Promise<CategoryRO> {
-    return await this.categoryService.findOneCategory(+id);
   }
 
   @Patch('category/:id')

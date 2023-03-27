@@ -15,11 +15,6 @@ export class UserController {
     return await this.userService.create(createUserDto);
   }
 
-  @Get()
-  async findAll(): Promise<UserRO[]> {
-    return await this.userService.findAll();
-  }
-
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<UserRO> {
     return await this.userService.findOne(+id);
