@@ -1,7 +1,7 @@
 supertokens.init({
   enableDebugLogs: true,
   appInfo: {
-    apiDomain: 'http://localhost:3000',
+    apiDomain: 'https://wellcal.onrender.com',
     apiBasePath: 'api/auth',
     appName: 'wellcal',
   },
