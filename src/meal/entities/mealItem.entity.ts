@@ -1,6 +1,5 @@
 import {
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
@@ -13,9 +12,6 @@ import { Product } from '../../product/entities/product.entity';
 export class MealItem {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @CreateDateColumn()
-  dateTime: Date;
 
   @Column({ unsigned: true })
   grams: number;

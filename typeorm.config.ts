@@ -2,7 +2,6 @@ import {
   TypeOrmModuleAsyncOptions,
   TypeOrmModuleOptions,
 } from '@nestjs/typeorm';
-import { ConfigModule, ConfigService } from '@nestjs/config';
 import { User } from './src/user/entities/user.entity';
 import { Product } from './src/product/entities/product.entity';
 import { Meal } from './src/meal/entities/meal.entity';
@@ -11,8 +10,6 @@ import { FoodPlan } from './src/food-plan/entities/foodPlan.entity';
 import { Category } from './src/product/entities/category.entity';
 
 export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
-  imports: [ConfigModule],
-  inject: [ConfigService],
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
     return {
       type: 'postgres',

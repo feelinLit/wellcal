@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -17,6 +18,7 @@ import { CategoryService } from './category.service';
 import { ProductRO } from './dto/product.response';
 import { CategoryRO } from './dto/category.response';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '../auth/auth.guard';
 
 @ApiTags('product')
 @Controller('api/product')
@@ -32,13 +34,10 @@ export class ProductController {
   }
 
   @ApiQuery({ name: 'categoryId', required: false })
+  @UseGuards(new AuthGuard())
   @Get()
   async findAll(@Query('categoryId') category?: string): Promise<ProductRO[]> {
-    if (category !== null) {
-      return await this.productService.findAllByCategory(category);
-    } else {
-      return await this.productService.findAll();
-    }
+    return this.productService.findAll(category);
   }
 
   @Patch(':id')

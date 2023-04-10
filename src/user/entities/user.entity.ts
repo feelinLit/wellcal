@@ -49,7 +49,7 @@ export class User {
 
   @OneToOne(() => FoodPlan)
   @JoinColumn({ name: 'planId' })
-  plan: FoodPlan;
+  foodPlan: FoodPlan;
 
   @Column()
   planId: number;

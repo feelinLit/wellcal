@@ -9,8 +9,34 @@ export class ProductService {
     throw new NotImplementedException();
   }
 
-  async findAll(): Promise<ProductRO[]> {
-    throw new NotImplementedException();
+  async findAll(categoryName?: string): Promise<ProductRO[]> {
+    const products: ProductRO[] = [
+      {
+        id: 1,
+        categoryId: 1,
+        name: 'Chicken breast',
+        proteinsNumber: 31,
+        fatsNumber: 4,
+        carbsNumber: 0,
+      },
+      {
+        id: 1,
+        categoryId: 1,
+        name: 'Egg',
+        proteinsNumber: 6,
+        fatsNumber: 5,
+        carbsNumber: 1,
+      },
+      {
+        id: 1,
+        categoryId: 1,
+        name: 'Brown rice',
+        proteinsNumber: 2,
+        fatsNumber: 1,
+        carbsNumber: 23,
+      },
+    ];
+    return products;
   }
 
   async findOne(id: number): Promise<ProductRO> {
@@ -25,10 +51,6 @@ export class ProductService {
   }
 
   async remove(id: number): Promise<boolean> {
-    throw new NotImplementedException();
-  }
-
-  async findAllByCategory(category: string): Promise<ProductRO[]> {
     throw new NotImplementedException();
   }
 }
