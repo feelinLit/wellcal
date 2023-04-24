@@ -12,7 +12,6 @@ import {
   showHumanDate,
 } from './hbs/helpers';
 import supertokens from 'supertokens-node';
-import { SupertokensExceptionFilter } from './auth/auth.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -58,8 +57,6 @@ async function bootstrap() {
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
     credentials: true,
   });
-
-  app.useGlobalFilters(new SupertokensExceptionFilter());
 
   await app.listen(process.env.port || 3000);
 }
