@@ -21,7 +21,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
       entities: [User, Product, Meal, MealItem, FoodPlan, Category],
       migrations: ['src/migrations/*.ts'],
       synchronize: true,
-      ssl: true,
+      // ssl: true,
     };
   },
 };
