@@ -5,11 +5,14 @@ import * as expressHbs from 'express-handlebars';
 import * as hbs from 'hbs';
 import { join } from 'path';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { calculateCalories } from './hbs/helpers';
+import {
+  calculateCalories,
+  getCurrentTime,
+  getTime,
+  showHumanDate,
+} from './hbs/helpers';
 import supertokens from 'supertokens-node';
-// import SuperTokens from 'supertokens-web-js';
-// import Session from 'supertokens-web-js/recipe/session';
-// import ThirdParty from 'supertokens-web-js/recipe/thirdparty';
+import { SupertokensExceptionFilter } from './auth/auth.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -24,21 +27,22 @@ async function bootstrap() {
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/swagger', app, document, {});
 
-  app.useStaticAssets('public');
-  app.setBaseViewsDir('views');
+  app.useStaticAssets(join(__dirname, '..', '../public'));
+  app.setBaseViewsDir(join(__dirname, '..', '../views'));
   app.setViewEngine('hbs');
 
   app.engine(
     'hbs',
     expressHbs.engine({
-      layoutsDir: 'views/layouts',
+      layoutsDir: join(__dirname, '..', '../views', 'layouts'),
+      partialsDir: join(__dirname, '..', '../views', 'partials'),
       defaultLayout: 'layout_main',
       extname: 'hbs',
-      helpers: { calculateCalories },
+      helpers: { calculateCalories, getTime, showHumanDate, getCurrentTime },
     }),
   );
 
-  hbs.registerPartials(join('views', 'partials'));
+  hbs.registerPartials(join('../views', 'partials'));
 
   // SuperTokens.init({
   //   appInfo: {
@@ -54,6 +58,8 @@ async function bootstrap() {
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
     credentials: true,
   });
+
+  app.useGlobalFilters(new SupertokensExceptionFilter());
 
   await app.listen(process.env.port || 3000);
 }

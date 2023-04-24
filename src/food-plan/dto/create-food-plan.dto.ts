@@ -5,5 +5,5 @@ export class CreateFoodPlanDto {
 
   carbsLimit: number;
 
-  userId: number;
+  userId: string;
 }

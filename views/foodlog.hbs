@@ -1,69 +1,156 @@
+<script>
+  function showYesterday() {
+    let date = new Date('{{{date}}}');
+    date = new Date(date.setDate(date.getDate() - 1));
+    window.location.href = `/foodlog/${date.toISOString().slice(0,10)}`;
+  }
+
+  function showTomorrow() {
+    let date = new Date('{{{date}}}');
+    date = new Date(date.setDate(date.getDate() + 1));
+    window.location.href = `/foodlog/${date.toISOString().slice(0,10)}`;
+  }
+</script>
+
 <div class="foodlog__main">
 <div class="side side_left">
     <div class="day-selector">
-        <i class="fa-solid fa-angle-left" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i>
-        <span class="day-selector__day-text">Today, 3rd Sept.</span>
-        <i class="fa-solid fa-angle-right" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i>
+        <div onclick="showYesterday()" style="cursor: pointer"><i class="fa-solid fa-angle-left" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i></div>
+        <span class="day-selector__day-text">{{{showHumanDate date}}}</span>
+        <div onclick="showTomorrow()" style="cursor: pointer"><i class="fa-solid fa-angle-right" style="color: #606C38; font-size: calc(0.8rem + 1vw)"></i></div>
     </div>
     <div class="fancy-list">
         <div class="fancy-list__item fancy-progress_proteins">
             <span>Proteins</span>
-            <span>80/140</span>
+          <span><span id="proteinsNum">{{proteinsNumber}}</span>/{{foodPlan.proteinsLimit}}</span>
         </div>
         <div class="fancy-list__item fancy-progress_carbohydrates">
             <span>Carbohydrates</span>
-            <span>130/385</span>
+            <span><span id="carbsNum">{{carbsNumber}}</span>/{{foodPlan.carbsLimit}}</span>
         </div>
         <div class="fancy-list__item fancy-progress_fats">
             <span>Fats</span>
-            <span>90/80</span>
+            <span><span id="fatsNum">{{fatsNumber}}</span>/{{foodPlan.fatsLimit}}</span>
         </div>
         <div class="fancy-list__item fancy-progress_calories">
             <span>Calories</span>
-            <span>2200/3000</span>
+            <span><span id="calsNum">{{calculateCalories proteinsNumber carbsNumber fatsNumber}}</span>/{{calculateCalories foodPlan.proteinsLimit foodPlan.carbsLimit foodPlan.fatsLimit}}</span>
         </div>
-        <div class="fancy-list__item fancy-progress_water">
-            <span>Water</span>
-            <span>
-                <span id="water-progress">1000</span>/<span id="water-max">1600</span>
-            </span>
-        </div>
-        <div class="fancy-btn-group">
-            <button class="fancy-btn fancy-btn__water">+50</button>
-            <button class="fancy-btn fancy-btn__water">+150</button>
-            <button class="fancy-btn fancy-btn__water">+250</button>
-        </div>
-        <script src="/js/waterProgress.js"></script>
     </div>
 </div>
+<script>
+  async function addMeal() {
+    let meal = await fetch('http://localhost:3000/meal', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: '{{{userId}}}'}),
+    });
+
+    meal = await meal.json();
+    console.log(meal);
+    var d = new Date();
+    d = d.getHours() + ':' + d.getMinutes();
+    const html = `
+                  <div class="fancy-list fancy-list__group">
+                    <div class="fancy-list__header">
+                      <span>${d}</span>
+                    </div>
+                    <button class="fancy-list__item big-list__item fancy-btn fancy-btn__meal-item" data-id="${meal.id}" type="button" data-dialog="productsDialog">Add item</button>
+                  </div>
+                 `
+    const addMealButton = document.getElementById('addMealButton');
+    addMealButton.insertAdjacentHTML('beforebegin', html)
+  }
+</script>
 <div class="side side_right">
-    <div class="big-list big-list_with-extra-space">
-        <div class="fancy-list fancy-list__group">
-            <div class="fancy-list__header">
-                1st Food Intake
-            </div>
-            <div class="fancy-list__item big-list__item">
-                <span>Бульмени</span>
-                <span>P: 10  F: 30  C: 40</span>
-                <span>500kcal  250g</span>
-            </div>
-        </div>
-        <div class="fancy-list fancy-list__group">
-            <div class="fancy-list__header">
-                <span>2nd Food Intake</span>
-            </div>
-            <div class="fancy-list__item big-list__item">
-                <span>Свиная голова</span>
-                <span>P: 20  F: 50  C: 50</span>
-                <span>1000kcal  500g</span>
-            </div>
-            <div class="fancy-list__item big-list__item">
-                <span>Сух. "Пять корочек"</span>
-                <span>P: 50  F: 10  C: 40</span>
-                <span>700kcal  200g</span>
-            </div>
-        </div>
-        <button class="fancy-btn fancy-btn__big-list">Add</button>
+    <div class="big-list big-list_with-extra-space" id="mealList">
+        {{#each meals}}
+          {{>meal meal=.}}
+        {{/each}}
+      <button class="fancy-btn fancy-btn__big-list" onclick="addMeal()" id="addMealButton">Add meal</button>
     </div>
 </div>
 </div>
+
+<div id="dialog" class="form-popup" style="display: none;">
+  <form id="gramsInput">
+    <label class="fancy-list__label">Grams
+      <input class="fancy-list__input-box" type="number" id="grams" name="grams" min="1" max="2000" placeholder="Type here" required>
+    </label>
+  </form>
+  {{> tableofproducts products=products}}
+  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list fancy-btn__big-list_delete" id="close">Cancel</button>
+
+</div>
+<script>
+  async function saveItem(addMealItemButton) {
+    if (!selectedProductJson) {
+      alert("Select product");
+      return;
+    }
+    console.log(addMealItemButton);
+    const grams = +new FormData(document.querySelector('#gramsInput')).get('grams');
+    let mealItem = await fetch('http://localhost:3000/meal/item', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        grams: grams,
+        mealId: addMealItemButton.getAttribute('data-id'),
+        productId: selectedProductJson.id,
+      })
+    });
+
+    mealItem = await mealItem.json();
+    console.log(mealItem);
+
+    const proteins = selectedProductJson.proteinsNumber;
+    const fats = selectedProductJson.fatsNumber;
+    const carbs = selectedProductJson.carbsNumber;
+    const html = `
+                  <div class="fancy-list__item big-list__item">
+                    <span>${selectedProductJson.name}</span>
+                    <span>P: ${proteins}  F: ${fats}  C: ${carbs}</span>
+                    <span>${proteins * 4 + carbs * 4 + fats * 9}kcal  ${grams}g</span>
+                  </div>
+                 `
+    addMealItemButton.insertAdjacentHTML('beforebegin', html);
+
+    const proteinsNum = document.getElementById('proteinsNum');
+    const carbsNum = document.getElementById('carbsNum');
+    const fatsNum = document.getElementById('fatsNum');
+    const calsNum = document.getElementById('calsNum');
+
+    proteinsNum.innerText = Number(proteinsNum.innerText) + proteins;
+    carbsNum.innerText = Number(carbsNum.innerText) + carbs;
+    fatsNum.innerText = Number(fatsNum.innerText) + fats;
+    calsNum.innerText = Number(calsNum.innerText) + proteins * 4 + carbs * 4 + fats * 9;
+  }
+
+  let addMealItemButton;
+
+  var dialog = document.querySelector('#dialog');
+  var dialogOpenButtons = document.querySelectorAll('.fancy-btn__meal-item');
+  var dialogCloseButton = document.querySelector('#close');
+  var dialogSaveButton = document.querySelector('#addButton');
+
+  // добавляем обработчик события клика на кнопку открытия диалогового окна
+  dialogOpenButtons.forEach((n) => n.addEventListener('click', function(event) {
+    addMealItemButton = event.target;
+    dialog.style.display = 'block';
+  }));
+
+  // добавляем обработчик события клика на кнопку закрытия диалогового окна
+  dialogCloseButton.addEventListener('click', function() {
+    dialog.style.display = 'none';
+  });
+
+  dialogSaveButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    saveItem(addMealItemButton);
+    dialog.style.display = 'none';
+  });
+</script>

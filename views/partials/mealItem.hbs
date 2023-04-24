@@ -1,0 +1,7 @@
+<div class="fancy-list__item big-list__item">
+  {{#with mealItem}}
+    <span>{{{product.name}}}</span>
+    <span>P: {{{product.proteinsNumber}}}  F: {{{product.fatsNumber}}}  C: {{{product.carbsNumber}}}</span>
+    <span>{{calculateCalories product.proteinsNumber product.fatsNumber product.fatsNumber}}kcal  {{{grams}}}g</span>
+  {{/with}}
+</div>

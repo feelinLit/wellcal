@@ -13,7 +13,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
   useFactory: async (): Promise<TypeOrmModuleOptions> => {
     return {
       type: 'postgres',
-      host: 'dpg-cgf306pmbg58h3ds1s8g-a',
+      host: 'dpg-cgf306pmbg58h3ds1s8g-a.frankfurt-postgres.render.com',
       port: 5432,
       username: 'welcal_db_ja66_user',
       password: '16pU9ZA0O1V5rcCeY30E3Xvif222PT03',
@@ -21,6 +21,7 @@ export const typeOrmModuleAsyncOptions: TypeOrmModuleAsyncOptions = {
       entities: [User, Product, Meal, MealItem, FoodPlan, Category],
       migrations: ['src/migrations/*.ts'],
       synchronize: true,
+      ssl: true,
     };
   },
 };

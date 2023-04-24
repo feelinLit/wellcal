@@ -9,7 +9,7 @@ async function handleGoogleCallback() {
       } else {
         // sign in successful
       }
-      window.location.assign('/');
+      window.location.assign('/user/auth/postAuth');
     } else {
       // SuperTokens requires that the third party provider
       // gives an email for the user. If that's not the case, sign up / in

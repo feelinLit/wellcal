@@ -7,8 +7,7 @@ async function googleSignInClicked() {
 
           // This is where Google should redirect the user back after login or error.
           // This URL goes on the Google's dashboard as well.
-          authorisationURL:
-            'https://wellcal.onrender.com/api/auth/callback/google',
+          authorisationURL: 'http://localhost:3000/user/callback/google',
         },
       );
 
@@ -53,6 +52,10 @@ async function doesSessionExist() {
   }
 
   loggedInElement.appendChild(authElement);
+}
+
+if (window.location.pathname === '/signIn') {
+  googleSignInClicked();
 }
 
 doesSessionExist();

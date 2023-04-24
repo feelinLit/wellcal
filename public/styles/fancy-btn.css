@@ -6,7 +6,16 @@
     border: 3px solid;
     border-radius: 15px;
     transition: 0.3s;
+    cursor: pointer;
+}
 
+.fancy-btn__meal-item {
+    border-color: rgba(237, 205, 159, 1);
+    background-color: rgba(237, 205, 159, 0);
+}
+
+.fancy-btn__meal-item:hover {
+    background-color: rgba(237, 205, 159, 0.2);
 }
 
 .fancy-btn__water {
@@ -24,10 +33,19 @@
     font-size: calc(0.7rem + 0.5vw);
     border-color: rgba(237, 205, 159, 1);
     background-color: rgba(237, 205, 159, 0.5);
+    margin-top: 0.5rem;
 }
 
 .fancy-btn__big-list:hover {
     background-color: rgba(237, 205, 159, 1);
+}
+
+.fancy-btn__big-list_delete {
+    background-color: rgb(225, 67, 9, 0.5);
+}
+
+.fancy-btn__big-list_delete:hover {
+    background-color: rgb(225, 67, 9, 0.8);
 }
 
 .fancy-btn-group {

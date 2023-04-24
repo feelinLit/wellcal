@@ -6,6 +6,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Category } from './category.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Product {
@@ -15,12 +16,12 @@ export class Product {
   @Column({ unique: true })
   name: string;
 
-  @ManyToOne(() => Category)
+  @ManyToOne(() => Category, { nullable: true })
   @JoinColumn({ name: 'categoryId' })
   category: Category;
 
-  @Column()
-  categoryId: number;
+  @Column({ nullable: true })
+  categoryId?: number;
 
   @Column({ unsigned: true })
   proteinsNumber: number;
@@ -30,4 +31,11 @@ export class Product {
 
   @Column({ unsigned: true })
   carbsNumber: number;
+
+  @ManyToOne(() => User, { nullable: true })
+  @JoinColumn({ name: 'userId' })
+  user?: User;
+
+  @Column({ nullable: true })
+  userId?: string;
 }

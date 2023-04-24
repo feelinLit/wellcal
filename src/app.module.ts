@@ -10,21 +10,23 @@ import { FoodPlanModule } from './food-plan/food-plan.module';
 import { ProductService } from './product/product.service';
 import { AuthModule } from './auth/auth.module';
 import * as SuperTokensConfig from './config';
+import { MealService } from './meal/meal.service';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
-    UserModule,
-    ProductModule,
-    FoodPlanModule,
-    MealModule,
     AuthModule.forRoot({
       connectionURI: SuperTokensConfig.connectionUri,
       apiKey: SuperTokensConfig.apiKey,
       appInfo: SuperTokensConfig.appInfo,
     }),
+    TypeOrmModule.forRootAsync(typeOrmModuleAsyncOptions),
+    UserModule,
+    ProductModule,
+    FoodPlanModule,
+    MealModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ProductService],
+  providers: [AppService],
 })
 export class AppModule {}

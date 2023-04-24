@@ -7,6 +7,7 @@ import {
   Patch,
   Post,
   Query,
+  Render,
   UseGuards,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
@@ -19,9 +20,11 @@ import { ProductRO } from './dto/product.response';
 import { CategoryRO } from './dto/category.response';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AuthGuard } from '../auth/auth.guard';
+import { Session } from '../auth/session.decorator';
+import { SessionContainer } from 'supertokens-node/recipe/session';
 
 @ApiTags('product')
-@Controller('api/product')
+@Controller('product')
 export class ProductController {
   constructor(
     private readonly productService: ProductService,
@@ -36,16 +39,12 @@ export class ProductController {
   @ApiQuery({ name: 'categoryId', required: false })
   @UseGuards(new AuthGuard())
   @Get()
-  async findAll(@Query('categoryId') category?: string): Promise<ProductRO[]> {
-    return this.productService.findAll(category);
-  }
-
-  @Patch(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateProductDto: UpdateProductDto,
-  ): Promise<ProductRO> {
-    return await this.productService.update(+id, updateProductDto);
+  async findAll(
+    @Session() session: SessionContainer,
+    @Query('categoryId') categoryId?: number,
+  ): Promise<ProductRO[]> {
+    const userId = session.getUserId();
+    return await this.productService.findAllByUser(userId, categoryId);
   }
 
   @Delete(':id')
@@ -63,13 +62,5 @@ export class ProductController {
   @Get('category')
   async findAllCategories(): Promise<CategoryRO[]> {
     return await this.categoryService.findAllCategories();
-  }
-
-  @Patch('category/:id')
-  async updateCategory(
-    @Param('id') id: string,
-    @Body() updateCategoryDto: UpdateCategoryDto,
-  ): Promise<CategoryRO> {
-    return await this.categoryService.updateCategory(+id, updateCategoryDto);
   }
 }

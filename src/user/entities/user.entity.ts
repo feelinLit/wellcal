@@ -4,6 +4,7 @@ import {
   JoinColumn,
   OneToMany,
   OneToOne,
+  PrimaryColumn,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { FoodPlan } from '../../food-plan/entities/foodPlan.entity';
@@ -19,40 +20,38 @@ export enum ActivityLevel {
 
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
-  id: number;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
+  @PrimaryColumn()
+  id: string;
 
   @Column()
   name: string;
 
-  @Column({ unsigned: true })
-  height: number;
+  @Column({ unique: true })
+  email: string;
 
-  @Column({ unsigned: true })
-  weight: number;
+  @Column({ unsigned: true, nullable: true })
+  height?: number;
 
-  @Column()
-  gender: boolean;
+  @Column({ unsigned: true, nullable: true })
+  weight?: number;
+
+  @Column({ nullable: true })
+  gender?: boolean;
 
   @Column({
     type: 'enum',
     enum: ActivityLevel,
     default: ActivityLevel.LIGHTLY_ACTIVE,
+    nullable: true,
   })
-  activityLevel: ActivityLevel;
+  activityLevel?: ActivityLevel;
 
   @OneToOne(() => FoodPlan)
-  @JoinColumn({ name: 'planId' })
-  foodPlan: FoodPlan;
+  @JoinColumn({ name: 'foodPlanId' })
+  foodPlan?: FoodPlan;
 
-  @Column()
-  planId: number;
+  @Column({ nullable: true })
+  foodPlanId?: number;
 
   @OneToMany(() => Meal, (meal) => meal.user)
   meals: Meal[];

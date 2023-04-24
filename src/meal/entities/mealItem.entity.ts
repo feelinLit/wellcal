@@ -22,7 +22,7 @@ export class MealItem {
   @Column()
   productId: number;
 
-  @ManyToOne(() => Meal, (meal) => meal.items)
+  @ManyToOne(() => Meal, (meal) => meal.mealItems)
   @JoinColumn({ name: 'mealId' })
   meal: Meal;
 

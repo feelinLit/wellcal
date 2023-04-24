@@ -1,7 +1,7 @@
 export class CreateProductDto {
   name: string;
 
-  categoryId: number;
+  categoryId?: number;
 
   proteinsNumber: number;
 

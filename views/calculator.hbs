@@ -1,6 +1,11 @@
 <div class="calculator__main">
-<form action="#" id="calculator-form">
+  <form action="#" id="calculator-form">
     <div class="fancy-list" style="gap: 1rem;">
+      {{#unless authenticated}}
+        <label class="fancy-list__label" style="font-size: large">Your Name:
+            <input type="text" id="name" name="name" class="fancy-list__input-box" placeholder="Enter Your name" required>
+        </label>
+      {{/unless}}
         <label class="fancy-list__label">Age
             <input class="fancy-list__input-box" type="number" id="age" name="age" min="1" max="100" placeholder="Type here" required>
         </label>
@@ -54,5 +59,40 @@
 <div class="calculator__result" id="calculator-result"></div>
 </div>
 
+<script>
+  function createUser(name, height, weight, gender, activityLevel) {
+    fetch('http://localhost:3000/user', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body : name
+        ? JSON.stringify({id: '{{id}}', name, email: "{{email}}", height, weight, gender, activityLevel})
+        : JSON.stringify({id: '{{id}}', email: "{{email}}", height, weight, gender, activityLevel})
+    })
+      .then(response => {
+        var user = response.json();
+        console.log(user);
+        return user.id;
+      })
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+  }
+
+  function createFoodPlan(calories, proteins, fats, carbs) {
+    fetch('http://localhost:3000/foodplan', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ userId: '{{id}}', proteinsLimit: proteins | 0, fatsLimit: fats | 0, carbsLimit: carbs | 0 }),
+    })
+      .then(response => {console.log(response.json()); })
+      .then(data => console.log(data))
+      .catch(error => console.error(error));
+
+    window.location.href = '/';
+  }
+</script>
 <script src='/js/calculator.js'></script>
 <script src='/js/restoreCalculatorForm.js'></script>

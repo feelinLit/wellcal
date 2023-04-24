@@ -15,16 +15,16 @@ export class Meal {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @CreateDateColumn()
+  @CreateDateColumn({ type: 'timestamp with time zone' })
   dateTime: Date;
 
-  @OneToMany(() => MealItem, (item) => item.product)
-  items: MealItem[];
+  @OneToMany(() => MealItem, (item) => item.meal)
+  mealItems: MealItem[];
 
   @ManyToOne(() => User, (user) => user.meals)
   @JoinColumn({ name: 'userId' })
   user: User;
 
   @Column()
-  userId: number;
+  userId: string;
 }

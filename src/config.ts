@@ -5,15 +5,15 @@ import Dashboard from 'supertokens-node/recipe/dashboard';
 export const appInfo = {
   // Learn more about this on https://supertokens.com/docs/thirdpartypasswordless/appinfo
   appName: 'wellcal',
-  apiDomain: 'https://wellcal.onrender.com',
-  websiteDomain: 'https://wellcal.onrender.com',
+  apiDomain: 'http://localhost:3000',
+  websiteDomain: 'http://localhost:3000',
   apiBasePath: '/api/auth',
   websiteBasePath: '/auth',
 };
 
 export const connectionUri =
-  'https://prod-f3c5e381d63011eda6cdedfc3612f651-eu-west-1.aws.supertokens.io:3567';
-export const apiKey = '3loc6HTEQ1k=nuSRkW6tHkveTtsEVS';
+  'https://dev-73c9c251d63011ed91c2157b3f912564-eu-west-1.aws.supertokens.io:3568';
+export const apiKey = 'ztlyRlFRzP-s-FHRZq0queBvd4Jt7B';
 
 export const recipeList = [
   ThirdParty.init({

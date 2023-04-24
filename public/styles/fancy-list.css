@@ -41,8 +41,13 @@
 
 .fancy-list__item_search {
     margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
     background-color: white;
-    border-color: white;
+    border-color: gray;
+}
+
+.fancy-list__item_search:focus {
+    border-color: black;
 }
 
 .big-list {
@@ -61,6 +66,16 @@
 .big-list__item {
     border-color: #EDCD9F;
     font-size: calc(0.5rem + 0.5vw);
+    cursor: pointer;
+}
+
+.big-list__item:hover {
+    background-color: rgba(237, 205, 159, 0.2);
+}
+
+.big-list__item.selected {
+    background-color: rgba(237, 205, 159, 0.6);
+    border-color: #784801;
 }
 
 .big-list_with-extra-space {

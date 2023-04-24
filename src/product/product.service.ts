@@ -2,11 +2,18 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductRO } from './dto/product.response';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Product } from './entities/product.entity';
+import { In, IsNull, Repository } from 'typeorm';
 
 @Injectable()
 export class ProductService {
+  constructor(
+    @InjectRepository(Product) private productRepository: Repository<Product>,
+  ) {}
+
   async create(createProductDto: CreateProductDto): Promise<ProductRO> {
-    throw new NotImplementedException();
+    return await this.productRepository.save(createProductDto);
   }
 
   async findAll(categoryName?: string): Promise<ProductRO[]> {
@@ -39,18 +46,24 @@ export class ProductService {
     return products;
   }
 
-  async findOne(id: number): Promise<ProductRO> {
-    throw new NotImplementedException();
-  }
-
-  async update(
-    id: number,
-    updateProductDto: UpdateProductDto,
-  ): Promise<ProductRO> {
-    throw new NotImplementedException();
-  }
-
   async remove(id: number): Promise<boolean> {
-    throw new NotImplementedException();
+    console.log(id);
+    await this.productRepository.delete(id);
+    return true;
+  }
+
+  async findAllByUser(
+    userId: string,
+    categoryId?: number,
+  ): Promise<ProductRO[]> {
+    return categoryId
+      ? await this.productRepository.findBy([
+          { userId: userId, categoryId: categoryId },
+          { userId: IsNull(), categoryId: categoryId },
+        ])
+      : await this.productRepository.findBy([
+          { userId: userId },
+          { userId: IsNull() },
+        ]);
   }
 }

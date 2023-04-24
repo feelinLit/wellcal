@@ -1,11 +1,115 @@
+<!--<div class="big-list" style="height: 100%; margin: 0 3%; padding-bottom: 10%;">-->
+<!--  <input placeholder="Search" class="fancy-list__header fancy-list__item_search" />-->
+<!--  {{#each products}}-->
+<!--    <div class="fancy-list__item big-list__item">-->
+<!--      <span>{{name}}</span>-->
+<!--      <span>P: {{proteinsNumber}}  F: {{fatsNumber}}  C: {{carbsNumber}}</span>-->
+<!--      <span>{{calculateCalories proteinsNumber carbsNumber fatsNumber}}kcal  100g</span>-->
+<!--    </div>-->
+<!--  {{/each}}-->
+<!--  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list">Add</button>-->
+<!--</div>-->
+
 <div class="big-list" style="height: 100%; margin: 0 3%; padding-bottom: 10%;">
-  <input placeholder="Search" class="fancy-list__header fancy-list__item_search" />
-  {{#each products}}
-    <div class="fancy-list__item big-list__item">
-      <span>{{name}}</span>
-      <span>P: {{proteinsNumber}}  F: {{fatsNumber}}  C: {{carbsNumber}}</span>
-      <span>{{calculateCalories proteinsNumber carbsNumber fatsNumber}}kcal  100g</span>
-    </div>
-  {{/each}}
-  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list">Add</button>
+  {{> tableofproducts products=products}}
+  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list fancy-btn__big-list_delete" id="deleteButton">Delete</button>
 </div>
+
+<div id="dialog" class="form-popup" style="display: none;">
+  <form action="#" class="form-container" id="saveProductForm">
+    <div class="fancy-list" style="gap: 1rem; margin-bottom: 1rem">
+      <label class="fancy-list__label">Name
+        <input class="fancy-list__input-box" style="width: 80%" type="text" id="name" name="name" placeholder="Type here" required>
+      </label>
+      <label class="fancy-list__label">Proteins
+        <input class="fancy-list__input-box" style="width: 80%" type="number" id="proteins" name="proteins" min="0" max="100" placeholder="Type here" required>
+      </label>
+      <label class="fancy-list__label">Carbs
+        <input class="fancy-list__input-box" style="width: 80%" type="number" id="carbs" name="carbs" min="0" max="100" placeholder="Type here" required>
+      </label>
+      <label class="fancy-list__label">Fats
+        <input class="fancy-list__input-box" style="width: 80%" type="number" id="fats" name="fats" min="0" max="100" placeholder="Type here" required>
+      </label>
+    </div>
+
+      <button type="submit" class="btn" id="saveProduct">Save</button>
+      <button type="button" class="btn cancel" id="close">Close</button>
+  </form>
+</div>
+
+<script>
+  async function saveProduct() {
+    const form = document.getElementById('saveProductForm');
+    const formData = new FormData(form);
+    let name = formData.get('name');
+    let proteins = formData.get("proteins");
+    let fats=  formData.get('fats');
+    let carbs = formData.get('carbs');
+
+    let product = await fetch('http://localhost:3000/product', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId: '{{{userId}}}',
+        name: name,
+        proteinsNumber: proteins,
+        fatsNumber: fats,
+        carbsNumber: carbs})
+    });
+
+    product = await product.json();
+    console.log(product);
+
+    const html = `
+                  <div class="fancy-list__item big-list__item">
+                    <span>${name}</span>
+                    <span>P: ${proteins}  F: ${fats}  C: ${carbs}</span>
+                    <span>${proteins * 4 + carbs * 4 + fats * 9}kcal  100g</span>
+                  </div>
+                 `
+    const addMealButton = document.getElementById('addButton');
+    addMealButton.insertAdjacentHTML('beforebegin', html)
+  }
+
+  async function deleteProduct() {
+    if (!selectedProductJson) {
+      return;
+    }
+
+
+    var result = await fetch(`http://localhost:3000/product/${selectedProductJson.id}`, {
+      method: 'DELETE',
+    });
+
+    console.log(result);
+
+    selectedProduct.remove();
+
+  }
+
+  var dialog = document.querySelector('#dialog');
+  var dialogOpenButton = document.querySelector('#addButton');
+  var dialogCloseButton = document.querySelector('#close');
+  var dialogSaveButton = document.querySelector('#saveProduct');
+
+  // добавляем обработчик события клика на кнопку открытия диалогового окна
+  dialogOpenButton.addEventListener('click', function() {
+    dialog.style.display = 'block';
+  });
+
+  // добавляем обработчик события клика на кнопку закрытия диалогового окна
+  dialogCloseButton.addEventListener('click', function() {
+    dialog.style.display = 'none';
+  });
+
+  dialogSaveButton.addEventListener('click', function(event) {
+    event.preventDefault();
+    saveProduct();
+    dialog.style.display = 'none';
+  });
+
+  var deleteButton = document.querySelector('.fancy-btn__big-list_delete');
+  deleteButton.addEventListener('click', deleteProduct)
+</script>

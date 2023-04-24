@@ -18,26 +18,27 @@ import { MealItemRO } from './dto/mealItem.response';
 import { ApiQuery, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('meal')
-@Controller('api/meal')
+@Controller('meal')
 export class MealController {
   constructor(
     private readonly mealService: MealService,
     private readonly mealItemService: MealItemService,
   ) {}
 
+  @Get(':userId/:date')
+  async getByUserAndDate(
+    @Param('userId') userId: string,
+    @Param('date') date: string,
+  ): Promise<MealRO[]> {
+    return await this.mealService.findAllByUserAndDate(
+      userId,
+      this.getDateWithoutTime(date),
+    );
+  }
+
   @Post()
   async create(@Body() createMealDto: CreateMealDto): Promise<MealRO> {
     return await this.mealService.create(createMealDto);
-  }
-
-  @ApiQuery({ name: 'userId', required: false })
-  @Get()
-  async findAll(@Query('userId') userId?: string): Promise<MealRO[]> {
-    if (userId !== null) {
-      return await this.mealService.findAllByUser(+userId);
-    } else {
-      return await this.mealService.findAll();
-    }
   }
 
   @Delete(':id')
@@ -49,6 +50,7 @@ export class MealController {
   async createMealItem(
     @Body() createMealItemDto: CreateMealItemDto,
   ): Promise<MealItemRO> {
+    console.log(createMealItemDto);
     return await this.mealItemService.create(createMealItemDto);
   }
 
@@ -75,5 +77,11 @@ export class MealController {
   @Delete('item/:id')
   async removeItem(@Param('id') id: string): Promise<boolean> {
     return await this.mealItemService.remove(+id);
+  }
+
+  private getDateWithoutTime(date?: string): Date {
+    return date
+      ? new Date(new Date(date).setHours(0, 0, 0))
+      : new Date(new Date().setHours(0, 0, 0));
   }
 }

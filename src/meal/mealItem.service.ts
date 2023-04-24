@@ -2,11 +2,18 @@ import { Injectable, NotImplementedException } from '@nestjs/common';
 import { UpdateMealItemDto } from './dto/update-mealItem.dto';
 import { CreateMealItemDto } from './dto/create-mealItem.dto';
 import { MealItemRO } from './dto/mealItem.response';
+import { InjectRepository } from '@nestjs/typeorm';
+import { MealItem } from './entities/mealItem.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class MealItemService {
+  constructor(
+    @InjectRepository(MealItem)
+    private mealItemRepository: Repository<MealItem>,
+  ) {}
   async create(createMealItemDto: CreateMealItemDto): Promise<MealItemRO> {
-    throw new NotImplementedException();
+    return await this.mealItemRepository.save(createMealItemDto);
   }
 
   async findAllByMeal(mealId: number): Promise<MealItemRO[]> {

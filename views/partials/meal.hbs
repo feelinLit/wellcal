@@ -1,0 +1,9 @@
+<div class="fancy-list fancy-list__group">
+  <div class="fancy-list__header">
+    <span>{{getTime dateTime}}</span>
+  </div>
+  {{#each mealItems}}
+    {{>mealItem mealItem=.}}
+  {{/each}}
+  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__meal-item" data-id="{{id}}" type="button" data-dialog="productsDialog">Add item</button>
+</div>
