@@ -53,7 +53,7 @@ async function bootstrap() {
   // });
 
   app.enableCors({
-    origin: ['http://localhost:3000'],
+    origin: ['https://wellcal.onrender.com'],
     allowedHeaders: ['content-type', ...supertokens.getAllCORSHeaders()],
     credentials: true,
   });

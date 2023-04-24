@@ -46,7 +46,7 @@
     let fats=  formData.get('fats');
     let carbs = formData.get('carbs');
 
-    let product = await fetch('http://localhost:3000/product', {
+    let product = await fetch('https://wellcal.onrender.com/product', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -79,7 +79,7 @@
     }
 
 
-    var result = await fetch(`http://localhost:3000/product/${selectedProductJson.id}`, {
+    var result = await fetch(`https://wellcal.onrender.com/product/${selectedProductJson.id}`, {
       method: 'DELETE',
     });
 

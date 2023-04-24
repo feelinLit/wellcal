@@ -5,8 +5,8 @@ import Dashboard from 'supertokens-node/recipe/dashboard';
 export const appInfo = {
   // Learn more about this on https://supertokens.com/docs/thirdpartypasswordless/appinfo
   appName: 'wellcal',
-  apiDomain: 'http://localhost:3000',
-  websiteDomain: 'http://localhost:3000',
+  apiDomain: 'https://wellcal',
+  websiteDomain: 'https://wellcal.onrender.com',
   apiBasePath: '/api/auth',
   websiteBasePath: '/auth',
 };

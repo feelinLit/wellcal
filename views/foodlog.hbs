@@ -40,7 +40,7 @@
 </div>
 <script>
   async function addMeal() {
-    let meal = await fetch('http://localhost:3000/meal', {
+    let meal = await fetch('https://wellcal.onrender.com/meal', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,7 +92,7 @@
     }
     console.log(addMealItemButton);
     const grams = +new FormData(document.querySelector('#gramsInput')).get('grams');
-    let mealItem = await fetch('http://localhost:3000/meal/item', {
+    let mealItem = await fetch('https://wellcal.onrender.com/meal/item', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

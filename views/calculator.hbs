@@ -61,7 +61,7 @@
 
 <script>
   function createUser(name, height, weight, gender, activityLevel) {
-    fetch('http://localhost:3000/user', {
+    fetch('https://wellcal.onrender.com/user', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -80,7 +80,7 @@
   }
 
   function createFoodPlan(calories, proteins, fats, carbs) {
-    fetch('http://localhost:3000/foodplan', {
+    fetch('https://wellcal.onrender.com/foodplan', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
