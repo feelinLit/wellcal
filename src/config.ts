@@ -12,8 +12,8 @@ export const appInfo = {
 };
 
 export const connectionUri =
-  'https://dev-73c9c251d63011ed91c2157b3f912564-eu-west-1.aws.supertokens.io:3568';
-export const apiKey = 'ztlyRlFRzP-s-FHRZq0queBvd4Jt7B';
+  'https://bfc50b61fac011ed8da4a38a0d97c46d-eu-west-1.aws.supertokens.io:3567';
+export const apiKey = '3loc6HTEQ1k=nuSRkW6tHkveTtsEVS';
 
 export const recipeList = [
   ThirdParty.init({
