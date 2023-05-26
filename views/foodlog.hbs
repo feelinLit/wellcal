@@ -38,20 +38,22 @@
         </div>
     </div>
 </div>
-<script>
-  async function addMeal() {
-    let meal = await fetch('https://wellcal.onrender.com/meal', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ userId: '{{{userId}}}'}),
-    });
 
-    meal = await meal.json();
+<script>
+  const socket = io();
+
+  socket.on("addMeal", (meal) => addMeal(meal));
+  socket.on('addMealItem', mealItem => saveMealItem(mealItem));
+
+  async function onAddMealClicked() {
+    socket.emit('addMeal', { userId: '{{{userId}}}', clientId: socket.id }
+    );
+  }
+
+  function addMeal(meal) {
     console.log(meal);
-    var d = new Date();
-    d = d.getHours() + ':' + d.getMinutes();
+    meal.dateTime = new Date(meal.dateTime);
+    const d = meal.dateTime.getHours() + ':' + meal.dateTime.getMinutes();
     const html = `
                   <div class="fancy-list fancy-list__group">
                     <div class="fancy-list__header">
@@ -64,12 +66,13 @@
     addMealButton.insertAdjacentHTML('beforebegin', html)
   }
 </script>
+
 <div class="side side_right">
     <div class="big-list big-list_with-extra-space" id="mealList">
         {{#each meals}}
           {{>meal meal=.}}
         {{/each}}
-      <button class="fancy-btn fancy-btn__big-list" onclick="addMeal()" id="addMealButton">Add meal</button>
+      <button class="fancy-btn fancy-btn__big-list" onclick="onAddMealClicked()" id="addMealButton">Add meal</button>
     </div>
 </div>
 </div>
@@ -82,39 +85,38 @@
   </form>
   {{> tableofproducts products=products}}
   <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list fancy-btn__big-list_delete" id="close">Cancel</button>
-
 </div>
 <script>
-  async function saveItem(addMealItemButton) {
+  async function onSaveItemClicked(addMealItemButton) {
     if (!selectedProductJson) {
       alert("Select product");
       return;
     }
     console.log(addMealItemButton);
     const grams = +new FormData(document.querySelector('#gramsInput')).get('grams');
-    let mealItem = await fetch('https://wellcal.onrender.com/meal/item', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        grams: grams,
-        mealId: addMealItemButton.getAttribute('data-id'),
-        productId: selectedProductJson.id,
-      })
-    });
+    socket.emit('addMealItem', {
+        mealItem: {
+          grams: grams,
+          mealId: addMealItemButton.getAttribute('data-id'),
+          productId: selectedProductJson.id
+        },
+        userId: '{{{userId}}}',
+        clientId: socket.id,
+  }
+    );
+  }
 
-    mealItem = await mealItem.json();
+  function saveMealItem(mealItem) {
     console.log(mealItem);
 
-    const proteins = selectedProductJson.proteinsNumber;
-    const fats = selectedProductJson.fatsNumber;
-    const carbs = selectedProductJson.carbsNumber;
+    const proteins = mealItem.product.proteinsNumber;
+    const fats = mealItem.product.fatsNumber;
+    const carbs = mealItem.product.carbsNumber;
     const html = `
                   <div class="fancy-list__item big-list__item">
-                    <span>${selectedProductJson.name}</span>
+                    <span>${mealItem.product.name}</span>
                     <span>P: ${proteins}  F: ${fats}  C: ${carbs}</span>
-                    <span>${proteins * 4 + carbs * 4 + fats * 9}kcal  ${grams}g</span>
+                    <span>${proteins * 4 + carbs * 4 + fats * 9}kcal  ${mealItem.grams}g</span>
                   </div>
                  `
     addMealItemButton.insertAdjacentHTML('beforebegin', html);
@@ -150,7 +152,7 @@
 
   dialogSaveButton.addEventListener('click', function(event) {
     event.preventDefault();
-    saveItem(addMealItemButton);
+    onSaveItemClicked(addMealItemButton);
     dialog.style.display = 'none';
   });
 </script>

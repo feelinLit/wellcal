@@ -11,23 +11,29 @@
 <script>
   let selectedProduct;
   let selectedProductJson
-  const products = document.querySelectorAll(".product-item");
-  products.forEach(n => {
-    n.addEventListener('click',  () => {
-      products.forEach(p => p.classList.remove('selected'));
-      n.classList.add('selected');
-      selectedProduct = n;
-      let productName = selectedProduct.children[0].innerText;
-      let productPFC = selectedProduct.children[1];
-      let productP = productPFC.children[0].innerText.slice(3);
-      let productF = productPFC.children[1].innerText.slice(3);
-      let productC = productPFC.children[2].innerText.slice(3);
-      selectedProductJson = {
-        name: productName,
-        proteinsNumber: +productP,
-        fatsNumber: +productF,
-        carbsNumber: +productC,
-        id: selectedProduct.getAttribute('data-value')};
-    });
-  });
+  let products
+
+  function addSelectedEventListeners() {
+    products = document.querySelectorAll(".product-item");
+    products.forEach(n =>
+      n.addEventListener('click',  () => {
+        products.forEach(p => p.classList.remove('selected'));
+        n.classList.add('selected');
+        selectedProduct = n;
+        let productName = selectedProduct.children[0].innerText;
+        let productPFC = selectedProduct.children[1];
+        let productP = productPFC.children[0].innerText.slice(3);
+        let productF = productPFC.children[1].innerText.slice(3);
+        let productC = productPFC.children[2].innerText.slice(3);
+        selectedProductJson = {
+          name: productName,
+          proteinsNumber: +productP,
+          fatsNumber: +productF,
+          carbsNumber: +productC,
+          id: selectedProduct.getAttribute('data-value')
+        };
+      }));
+  }
+
+  addSelectedEventListeners();
 </script>

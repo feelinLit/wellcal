@@ -31,7 +31,6 @@ export class FoodPlanService {
   }
 
   async findOneByUser(userId: string): Promise<FoodPlanRO> {
-    const user = await this.userRepository.findOneBy({ id: userId });
-    return await this.foodPlanRepository.findOneBy({ id: user.foodPlanId });
+    return await this.foodPlanRepository.findOneBy({ userId: userId });
   }
 }

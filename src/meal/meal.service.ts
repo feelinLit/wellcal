@@ -33,6 +33,7 @@ export class MealService {
         dateTime: Between(dateWithoutTime, nextDay),
       },
       relations: ['mealItems', 'mealItems.product'],
+      order: { dateTime: 'ASC' },
     });
   }
 

@@ -1,15 +1,3 @@
-<!--<div class="big-list" style="height: 100%; margin: 0 3%; padding-bottom: 10%;">-->
-<!--  <input placeholder="Search" class="fancy-list__header fancy-list__item_search" />-->
-<!--  {{#each products}}-->
-<!--    <div class="fancy-list__item big-list__item">-->
-<!--      <span>{{name}}</span>-->
-<!--      <span>P: {{proteinsNumber}}  F: {{fatsNumber}}  C: {{carbsNumber}}</span>-->
-<!--      <span>{{calculateCalories proteinsNumber carbsNumber fatsNumber}}kcal  100g</span>-->
-<!--    </div>-->
-<!--  {{/each}}-->
-<!--  <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list">Add</button>-->
-<!--</div>-->
-
 <div class="big-list" style="height: 100%; margin: 0 3%; padding-bottom: 10%;">
   {{> tableofproducts products=products}}
   <button class="fancy-list__item big-list__item fancy-btn fancy-btn__big-list fancy-btn__big-list_delete" id="deleteButton">Delete</button>
@@ -38,7 +26,12 @@
 </div>
 
 <script>
-  async function saveProduct() {
+  const socket = io({ query: {userId: '{{{userId}}}'}});
+
+  socket.on("addProduct", (product) => saveProduct(product));
+  socket.on('deleteProduct', (result) => { if (result.isDeleted) deleteProduct(result.productId) });
+
+  async function onSaveProductClicked() {
     const form = document.getElementById('saveProductForm');
     const formData = new FormData(form);
     let name = formData.get('name');
@@ -46,47 +39,48 @@
     let fats=  formData.get('fats');
     let carbs = formData.get('carbs');
 
-    let product = await fetch('https://wellcal.onrender.com/product', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
+    socket.emit('addProduct', {
+      userId: '{{{userId}}}',
+      product: {
         userId: '{{{userId}}}',
         name: name,
         proteinsNumber: proteins,
         fatsNumber: fats,
-        carbsNumber: carbs})
+        carbsNumber: carbs
+      }
     });
+  }
 
-    product = await product.json();
+  function saveProduct(product) {
     console.log(product);
 
+
     const html = `
-                  <div class="fancy-list__item big-list__item">
-                    <span>${name}</span>
-                    <span>P: ${proteins}  F: ${fats}  C: ${carbs}</span>
-                    <span>${proteins * 4 + carbs * 4 + fats * 9}kcal  100g</span>
+                  <div class="fancy-list__item big-list__item product-item" data-value="${product.id}">
+                    <span>${product.name}</span>
+                    <span><span>P: ${product.proteinsNumber}</span>&nbsp;&nbsp;<span>F: ${product.fatsNumber}</span>&nbsp;&nbsp;<span>C: ${product.carbsNumber}</span></span>
+                    <span>${product.proteinsNumber * 4 + product.carbsNumber * 4 + product.fatsNumber * 9}kcal  100g</span>
                   </div>
                  `
     const addMealButton = document.getElementById('addButton');
     addMealButton.insertAdjacentHTML('beforebegin', html)
+    addSelectedEventListeners();
   }
 
-  async function deleteProduct() {
+  async function onDeleteProductClicked() {
     if (!selectedProductJson) {
       return;
     }
 
+    socket.emit('deleteProduct', {
+      userId: '{{{userId}}}',
+      productId: selectedProductJson.id,
+    })
+  }
 
-    var result = await fetch(`https://wellcal.onrender.com/product/${selectedProductJson.id}`, {
-      method: 'DELETE',
-    });
-
-    console.log(result);
-
-    selectedProduct.remove();
-
+  function deleteProduct(productId) {
+    const productElem = document.querySelector(`[data-value="${productId}"`);
+    productElem.remove();
   }
 
   var dialog = document.querySelector('#dialog');
@@ -106,10 +100,10 @@
 
   dialogSaveButton.addEventListener('click', function(event) {
     event.preventDefault();
-    saveProduct();
+    onSaveProductClicked();
     dialog.style.display = 'none';
   });
 
   var deleteButton = document.querySelector('.fancy-btn__big-list_delete');
-  deleteButton.addEventListener('click', deleteProduct)
+  deleteButton.addEventListener('click', onDeleteProductClicked)
 </script>
